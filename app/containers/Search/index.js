@@ -27,22 +27,26 @@ const Search = ({
   suggestions,
   onSubmitForm,
   onChangeSearchTerm,
-}) =>
-  <SearchForm
-    searchTerm={searchTerm}
-    onChangeSearchTerm={onChangeSearchTerm}
-    onSubmitForm={onSubmitForm}
-  >
-    {isFetching && <LoadingIndicator />}
-    {!isFetching && isOffline && <OfflineIndicator />}
-    <SuggestionList {...suggestions} />
-  </SearchForm>;
+}) => {
+  debugger;
+  return (
+    <SearchForm
+      searchTerm={searchTerm}
+      onChangeSearchTerm={onChangeSearchTerm}
+      onSubmitForm={onSubmitForm}
+    >
+      {isFetching && <LoadingIndicator />}
+      {!isFetching && isOffline && <OfflineIndicator />}
+      <SuggestionList suggestions={suggestions} />
+    </SearchForm>
+  );
+};
 
 Search.propTypes = {
   searchTerm: PropTypes.string,
   isOffline: PropTypes.bool,
   isFetching: PropTypes.bool,
-  suggestions: PropTypes.array,
+  suggestions: PropTypes.object,
   onSubmitForm: PropTypes.func,
   onChangeSearchTerm: PropTypes.func,
 };

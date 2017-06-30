@@ -21,7 +21,7 @@ export function* getSuggestions() {
   try {
     // yield put(fetching(true));
     const suggestions = yield call(request, requestUrl);
-    yield put(received(suggestions));
+    yield put(received(suggestions.suggests));
   } catch (error) {
     put(offline(true));
     put(fetching(false));

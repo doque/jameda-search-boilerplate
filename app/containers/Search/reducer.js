@@ -4,14 +4,14 @@
  *
  */
 
-import { fromJS } from 'immutable';
+import { fromJS, List } from 'immutable';
 import { ENTERED_SEARCHTERM, FETCHING, RECEIVED, OFFLINE } from './constants';
 
 const initialState = fromJS({
   searchTerm: '',
   isOffline: false,
   isFetching: false,
-  suggestions: [],
+  suggestions: List(),
 });
 
 function searchReducer(state = initialState, action) {
@@ -26,7 +26,7 @@ function searchReducer(state = initialState, action) {
       return state.set('suggestions', action.payload).set('fetching', false);
 
     case OFFLINE:
-      return state.set('isOffline', action.paylod);
+      return state.set('isOffline', action.payload);
 
     default:
       return state;
