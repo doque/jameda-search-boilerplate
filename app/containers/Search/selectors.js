@@ -16,17 +16,16 @@ const makeSelectSearchTerm = () =>
 
 const makeSelectIsOffline = () =>
   createSelector(selectSearchDomain(), (searchState) =>
-    searchState.get('offline')
+    searchState.get('isOffline')
   );
 
 const makeSelectIsFetching = () =>
   createSelector(selectSearchDomain(), (searchState) =>
-    searchState.get('offline')
+    searchState.get('isFetching')
   );
 
-const makeSelectSuggestions = () =>
-  createSelector(selectSearchDomain(), (searchState) =>
-    searchState.get('suggestions')
+const makeSelectSuggestions = () => createSelector(selectSearchDomain(), (searchState) =>
+    searchState.get('suggestions').toArray()
   );
 
 export {

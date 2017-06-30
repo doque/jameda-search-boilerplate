@@ -4,38 +4,25 @@
  *
  */
 
-import {
-  ENTERED_SEARCHTERM,
-  REQUESTED_SUGGESTIONS,
-  RECEIVED_SUGGESTIONS,
-  OFFLINE,
-  FETCHING,
-} from './constants';
+import { ENTERED_SEARCHTERM, FETCHING, RECEIVED, OFFLINE } from './constants';
 
 export function enteredSearchTerm(dispatch, searchTerm) {
-  dispatch(isFetching());
-  dispatch(requestedSuggestions());
+  dispatch(fetching({ payload: true }));
   return {
     type: ENTERED_SEARCHTERM,
     payload: searchTerm,
   };
 }
 
-export function isFetching() {
+export function fetching() {
   return {
     type: FETCHING,
   };
 }
 
-export function requestedSuggestions() {
+export function received(suggestions) {
   return {
-    type: REQUESTED_SUGGESTIONS,
-  };
-}
-
-export function receivedSuggestions(suggestions) {
-  return {
-    type: RECEIVED_SUGGESTIONS,
+    type: RECEIVED,
     payload: suggestions,
   };
 }

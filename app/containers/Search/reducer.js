@@ -5,12 +5,7 @@
  */
 
 import { fromJS } from 'immutable';
-import {
-  ENTERED_SEARCHTERM,
-  REQUESTED_SUGGESTIONS,
-  RECEIVED_SUGGESTIONS,
-  OFFLINE,
-} from './constants';
+import { ENTERED_SEARCHTERM, FETCHING, RECEIVED, OFFLINE } from './constants';
 
 const initialState = fromJS({
   searchTerm: '',
@@ -24,14 +19,14 @@ function searchReducer(state = initialState, action) {
     case ENTERED_SEARCHTERM:
       return state.set('searchTerm', action.payload);
 
-    case REQUESTED_SUGGESTIONS:
-      return state.set('isFetching', true);
+    case FETCHING:
+      return state.set('isFetching', action.payload);
 
-    case RECEIVED_SUGGESTIONS:
+    case RECEIVED:
       return state.set('suggestions', action.payload);
 
     case OFFLINE:
-      return state.set('offline', action.paylod);
+      return state.set('isOffline', action.paylod);
 
     default:
       return state;

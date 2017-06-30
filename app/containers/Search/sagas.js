@@ -3,13 +3,8 @@ import request from 'utils/request';
 
 import { makeSelectSearchTerm } from 'containers/Search/selectors';
 
-import { REQUESTED_SUGGESTIONS } from './constants';
-import {
-  requestedSuggestions,
-  receivedSuggestions,
-  isFetching,
-  offline,
-} from './actions';
+import { FETCHING } from './constants';
+import { received, fetching, offline } from './actions';
 
 // Individual exports for testing
 export function* getSuggestions() {
@@ -17,17 +12,18 @@ export function* getSuggestions() {
   const requestUrl = `https://jameda.localtunnel.me/suche.jameda-elements.de/what-new?query=${searchTerm}`;
 
   try {
-    yield put(requestedSuggestions());
-    yield put(isFetching());
+    yield put(fetching({ payload: true }));
     const suggestions = yield call(request, requestUrl);
-    yield put(receivedSuggestions(suggestions));
+    yield put(received({ payload: suggestions }));
+    yield put(fetching({ payload: false }));
   } catch (error) {
-    put(offline(true));
+    put(offline({ payload: true }));
+    put(fetching({ payload: false }));
   }
 }
 
 export function* suggestionData() {
-  const watcher = yield takeLatest(REQUESTED_SUGGESTIONS, getSuggestions);
+  const watcher = yield takeLatest(FETCHING, getSuggestions);
   yield cancel(watcher);
 }
 
