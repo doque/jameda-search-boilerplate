@@ -11,7 +11,7 @@ import SearchForm from 'components/SearchForm';
 import SuggestionList from 'components/SuggestionList';
 import LoadingIndicator from 'components/LoadingIndicator';
 import OfflineIndicator from 'components/OfflineIndicator';
-import { enteredSearchTerm } from './actions';
+import { enteredSearchTerm, fetching } from './actions';
 
 import {
   makeSelectSearchTerm,
@@ -25,9 +25,14 @@ const Search = ({
   isOffline,
   isFetching,
   suggestions,
-  changeHandler,
+  onSubmitForm,
+  onChangeSearchTerm,
 }) =>
-  <SearchForm searchTerm={searchTerm} changeHandler={changeHandler}>
+  <SearchForm
+    searchTerm={searchTerm}
+    onChangeSearchTerm={onChangeSearchTerm}
+    onSubmitForm={onSubmitForm}
+  >
     {isFetching && <LoadingIndicator />}
     {!isFetching && isOffline && <OfflineIndicator />}
     <SuggestionList {...suggestions} />
@@ -38,7 +43,8 @@ Search.propTypes = {
   isOffline: PropTypes.bool,
   isFetching: PropTypes.bool,
   suggestions: PropTypes.array,
-  changeHandler: PropTypes.func,
+  onSubmitForm: PropTypes.func,
+  onChangeSearchTerm: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -50,8 +56,15 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    changeHandler: (evt) =>
-      dispatch(enteredSearchTerm(dispatch, evt.target.value)),
+    onChangeSearchTerm: (evt) => {
+      dispatch(enteredSearchTerm(evt.target.value));
+    },
+    onSubmitForm: (evt) => {
+      if (evt !== undefined && evt.preventDefault) {
+        evt.preventDefault();
+      }
+      dispatch(fetching(true));
+    },
   };
 }
 

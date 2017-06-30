@@ -6,17 +6,17 @@
 
 import { ENTERED_SEARCHTERM, FETCHING, RECEIVED, OFFLINE } from './constants';
 
-export function enteredSearchTerm(dispatch, searchTerm) {
-  dispatch(fetching({ payload: true }));
+export function enteredSearchTerm(searchTerm) {
   return {
     type: ENTERED_SEARCHTERM,
     payload: searchTerm,
   };
 }
 
-export function fetching() {
+export function fetching(isFetching) {
   return {
     type: FETCHING,
+    payload: isFetching,
   };
 }
 

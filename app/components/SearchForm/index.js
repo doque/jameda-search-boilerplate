@@ -1,25 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const SearchForm = ({ searchTerm, changeHandler }) =>
-  <div>
+const SearchForm = ({ searchTerm, onSubmitForm, onChangeSearchTerm }) =>
+  <form onSubmit={onSubmitForm}>
     <label htmlFor="what">
       Was:
       <input
         type="text"
         className="input-field"
         name="what"
+        onChange={onChangeSearchTerm}
         value={searchTerm}
-        onChange={(e) => {
-          changeHandler(e);
-        }}
       />
     </label>
-  </div>;
+  </form>;
 
 SearchForm.propTypes = {
   searchTerm: PropTypes.string,
-  changeHandler: PropTypes.func,
+  onSubmitForm: PropTypes.func,
+  onChangeSearchTerm: PropTypes.func,
 };
 
 export default SearchForm;

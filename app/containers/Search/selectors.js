@@ -24,8 +24,9 @@ const makeSelectIsFetching = () =>
     searchState.get('isFetching')
   );
 
-const makeSelectSuggestions = () => createSelector(selectSearchDomain(), (searchState) =>
-    searchState.get('suggestions').toArray()
+const makeSelectSuggestions = () =>
+  createSelector(selectSearchDomain(), (searchState) =>
+    searchState.get('suggestions')
   );
 
 export {
