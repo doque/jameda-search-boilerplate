@@ -19,12 +19,11 @@ export function* getSuggestions() {
   const requestUrl = `https://jameda.localtunnel.me/suche.jameda-elements.de/what-new?query=${searchTerm}`;
 
   try {
-    // yield put(fetching(true));
     const suggestions = yield call(request, requestUrl);
     yield put(received(suggestions.suggests));
   } catch (error) {
-    put(offline(true));
-    put(fetching(false));
+    yield put(offline(true));
+    yield put(fetching(false));
   }
 }
 

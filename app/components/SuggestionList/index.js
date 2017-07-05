@@ -3,15 +3,14 @@ import PropTypes from 'prop-types';
 
 import SuggestItem from './SuggestionItem';
 
-const SuggestionList = ({ suggestions }) =>
+const SuggestionList = ({ suggestions }) => (
   <div>
-    {suggestions
-      .toArray()
-      .map((suggest, i) => <SuggestItem {...suggest} key={i} />)}
-  </div>;
+    {suggestions.map((suggest, i) => <SuggestItem {...suggest} key={i} />)}
+  </div>
+  );
 
 SuggestionList.propTypes = {
-  suggestions: PropTypes.object,
+  suggestions: PropTypes.array,
 };
 
 export default SuggestionList;
