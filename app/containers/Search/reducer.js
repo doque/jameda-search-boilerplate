@@ -23,9 +23,7 @@ function searchReducer(state = initialState, action) {
       return state.set('isFetching', action.payload);
 
     case RECEIVED:
-      return state
-        .set('suggestions', fromJS(action.payload))
-        .set('isFetching', false);
+      return state.set('suggestions', fromJS(action.payload));
 
     case OFFLINE:
       return state.set('isOffline', action.payload);

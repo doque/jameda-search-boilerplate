@@ -7,6 +7,8 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import Helmet from 'react-helmet';
+
 import SearchForm from 'components/SearchForm';
 import SuggestionList from 'components/SuggestionList';
 import LoadingIndicator from 'components/LoadingIndicator';
@@ -36,6 +38,9 @@ const Search = ({
     {isFetching && <LoadingIndicator />}
     {isOffline && <OfflineIndicator />}
     <SuggestionList suggestions={suggestions} />
+    <Helmet>
+      <title>Tralala</title>
+    </Helmet>
   </SearchForm>;
 
 Search.propTypes = {

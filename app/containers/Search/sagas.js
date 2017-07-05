@@ -5,12 +5,13 @@ import {
   put,
   select,
   takeLatest,
+  takeEvery,
 } from 'redux-saga/effects';
 import request from 'utils/request';
 
 import { makeSelectSearchTerm } from 'containers/Search/selectors';
 
-import { FETCHING, RECEIVED } from './constants';
+import { FETCHING, RECEIVED, OFFLINE } from './constants';
 import { received, fetching, offline } from './actions';
 
 // Individual exports for testing
@@ -23,13 +24,13 @@ export function* getSuggestions() {
     yield put(received(suggestions.suggests));
   } catch (error) {
     yield put(offline(true));
-    yield put(fetching(false));
   }
 }
 
 export function* suggestionData() {
-  const watcher = yield takeLatest(FETCHING, getSuggestions);
+  const watcher = yield takeEvery(FETCHING, getSuggestions);
   yield take(RECEIVED);
+  yield take(OFFLINE);
   yield cancel(watcher);
 }
 
